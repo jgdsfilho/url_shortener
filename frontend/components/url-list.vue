@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-toolbar color="cyan" dark>
-      <v-text-field class="ma-4" v-model="url" @keyup.enter="add_url()" label="Add todo and hit enter" :loading="adding" />
+      <v-text-field class="ma-4" v-model="url" @keyup.enter="add_url()" label="Add new url hit enter" :loading="adding" />
     </v-toolbar>
     <v-progress-linear :indeterminate="true" v-if="loading" />
     <v-list two-line>
