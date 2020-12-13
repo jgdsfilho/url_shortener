@@ -28,6 +28,9 @@ export default {
     return mockasync(all_url)
   },
   new_url (url) {
-    return mockasync({url, new_url: 'url_curta'}) // eslint-disable-line
+    return mockasync({url, new_url: 'url_curta'})
+  },
+  redirect_url (url) {
+    return mockasync({url, new_url: 'google.com'})
   }
 }
