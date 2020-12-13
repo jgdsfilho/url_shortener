@@ -1,6 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class DateBaseModel(models.Model):
+    class Meta:
+        abstract = True
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class Url(DateBaseModel):
+    url = models.CharField(max_length=255)
+    short_url = models.CharField(max_length=255)
+    logged_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
 
 class ActivityLog(models.Model):
     type = models.CharField(max_length=64)
@@ -20,13 +32,13 @@ class ActivityLog(models.Model):
         )
 
 
-class Todo(models.Model):
-    description = models.CharField(max_length=512)
-    done = models.BooleanField(default=False)
+# class Todo(models.Model):
+#     description = models.CharField(max_length=512)
+#     done = models.BooleanField(default=False)
 
-    def to_dict_json(self):
-        return {
-            'id': self.id,
-            'description': self.description,
-            'done': self.done,
-        }
+#     def to_dict_json(self):
+#         return {
+#             'id': self.id,
+#             'description': self.description,
+#             'done': self.done,
+#         }
