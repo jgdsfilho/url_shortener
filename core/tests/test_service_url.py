@@ -16,6 +16,7 @@ class TestServiceUrl(TestCase):
         urls_expected = [
             url.to_dict_json() for url in Url.objects.filter(logged_user=user)
         ]
+        urls_expected = {'urls': urls_expected}
         urls = list_urls(user)
         self.assertEqual(urls_expected, urls)
 
