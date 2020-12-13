@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class DateBaseModel(models.Model):
     class Meta:
         abstract = True
@@ -12,24 +13,39 @@ class DateBaseModel(models.Model):
 class Url(DateBaseModel):
     url = models.CharField(max_length=255)
     short_url = models.CharField(max_length=255)
-    logged_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    logged_user = models.ForeignKey(
+        User, null=True, blank=True, on_delete=models.SET_NULL
+    )
+
+    def to_dict_json(self):
+        return {
+            "id": self.id,
+            "url": self.url,
+            "short_url": self.short_url,
+            "user": self.logged_user.email,
+        }
+
 
 class ActivityLog(models.Model):
     type = models.CharField(max_length=64)
-    logged_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
-    fromuser = models.ForeignKey(User, null=True, blank=True, related_name="activitylogs_withfromuser", on_delete=models.SET_NULL)
+    logged_user = models.ForeignKey(
+        User, null=True, blank=True, on_delete=models.SET_NULL
+    )
+    fromuser = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        related_name="activitylogs_withfromuser",
+        on_delete=models.SET_NULL,
+    )
     jsondata = models.TextField(null=True, blank=True)
-    created_at = models.DateTimeField('criado em', auto_now_add=True)
+    created_at = models.DateTimeField("criado em", auto_now_add=True)
 
     class Meta:
-        ordering = ('-created_at',)
+        ordering = ("-created_at",)
 
     def __str__(self):
-        return '%s / %s / %s' % (
-            self.type,
-            self.logged_user,
-            self.created_at,
-        )
+        return "%s / %s / %s" % (self.type, self.logged_user, self.created_at,)
 
 
 # class Todo(models.Model):
