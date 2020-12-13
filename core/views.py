@@ -68,9 +68,6 @@ def url(request):
 def redirect_url(request, short_url):
     user = request.user.pk
     if request.method.lower() == "get" and short_url:
-        import pdb
-
-        pdb.set_trace()
         url = url_service.get_url(short_url)
         if url:
             return JsonResponse(url, safe=False)
