@@ -17,7 +17,9 @@ def add_url(url, user):
 
 def list_urls(user):
     urls = Url.objects.filter(logged_user=user)
-    return [url.to_dict_json() for url in urls]
+    list_urls = [url.to_dict_json() for url in urls]
+    list_urls = {"urls": list_urls}
+    return list_urls
 
 
 def get_url(short_url):
