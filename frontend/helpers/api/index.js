@@ -13,10 +13,14 @@ export default {
   settings () {
     return get('/api/settings')
   },
-  list_todos () {
-    return get('/api/list_todos')
+  list_urls () {
+    return get('/api/url')
   },
-  add_todo (newtask) {
-    return post('/api/add_todo', {new_task: newtask})
+  new_url (url) {
+    return post('/api/url', {url})
+  },
+  redirect_url (url) {
+    console.log(`/api/redirect_url/${url}`)
+    return get(`/api/redirect_url/${url}`)
   }
 }
